@@ -1,0 +1,10 @@
+# Pip packages for the pip-based setup path (alternative to conda).
+# These mirror the conda environment so either path runs Assignments 2-5 and Capstone.
+numpy
+pandas
+matplotlib
+scipy
+seaborn
+scikit-learn
+jupyterlab
+ipykernel
