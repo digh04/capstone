@@ -30,6 +30,8 @@ conda env create -f setup/environment-1.yml  # first time only
 conda activate capstone_env
 ```
 
+Use **`setup/environment-1.yml`** to create the environment. **`setup/environment.yml`** is an optional full conda export (pinned versions) for reference; you do not need it for a normal setup.
+
 Or run the helper script (creates env and starts JupyterLab on port 2000):
 
 ```bash
@@ -101,7 +103,8 @@ capstone/
 │   ├── capstone.csv          # Source data
 │   ├── config.yaml           # Paths and column names
 │   ├── run_pipeline.sh       # End-to-end pipeline entry point
-│   ├── environment-1.yml     # Conda environment
+│   ├── environment-1.yml     # Conda environment (use this to create capstone_env)
+│   ├── environment.yml       # Optional full conda export (pinned versions)
 │   ├── setup_env-1.sh        # OSC setup helper
 │   └── requirements-1.txt    # Pip fallback
 ├── src/                      # Ingest, process, analyze, visualize, export
@@ -132,6 +135,13 @@ See `outputs/figures/main_finding.png` after running the pipeline for the primar
 | `04_correlation_results.csv` | Pearson and Spearman results |
 | `05_regression_results.csv` | Descriptive linear trend |
 | `06_findings_summary.csv` | Plain-English interpretation |
+
+## Data sources
+
+External datasets and reference portals used for this project:
+
+- [NASA POWER Data Access Viewer](https://power.larc.nasa.gov/data-access-viewer/) — solar and environmental data
+- [CDC Mental Health Conditions & Care](https://www.cdc.gov/mental-health/about-data/conditions-care.html) — youth depression and mental health statistics
 
 ## License / course context
 

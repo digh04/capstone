@@ -84,7 +84,7 @@ def figure_caption(path: Path) -> str:
 
 def render_figure(path: Path) -> None:
     st.subheader(figure_title(path))
-    st.image(str(path), caption=figure_caption(path), use_container_width=True)
+    st.image(str(path), caption=figure_caption(path), width="stretch")
 
 
 def render_figure_gallery(figures: list[Path], columns: int = 1) -> None:
@@ -98,7 +98,7 @@ def render_figure_gallery(figures: list[Path], columns: int = 1) -> None:
             cols = st.columns(columns)
             for col, path in zip(cols, row):
                 with col:
-                    st.image(str(path), caption=figure_title(path), use_container_width=True)
+                    st.image(str(path), caption=figure_title(path), width="stretch")
         return
 
     for path in figures:
@@ -126,20 +126,20 @@ def render_interactive_charts(cleaned_df: pd.DataFrame) -> None:
 
     with left:
         st.markdown("**Youth depression (%)**")
-        st.line_chart(chart_df["youth_depression_pct"], use_container_width=True)
-        st.bar_chart(chart_df["youth_depression_pct"], use_container_width=True)
+        st.line_chart(chart_df["youth_depression_pct"], width="stretch")
+        st.bar_chart(chart_df["youth_depression_pct"], width="stretch")
 
     with right:
         st.markdown("**Average sunlight (MJ/m²/day)**")
-        st.line_chart(chart_df["avg_sun_mj_m2_day"], use_container_width=True)
-        st.bar_chart(chart_df["avg_sun_mj_m2_day"], use_container_width=True)
+        st.line_chart(chart_df["avg_sun_mj_m2_day"], width="stretch")
+        st.bar_chart(chart_df["avg_sun_mj_m2_day"], width="stretch")
 
     st.markdown("**Side-by-side comparison (normalized 0–1 for shape comparison only)**")
     normalized = chart_df.copy()
     for column in normalized.columns:
         span = normalized[column].max() - normalized[column].min()
         normalized[column] = (normalized[column] - normalized[column].min()) / span if span else 0.0
-    st.line_chart(normalized, use_container_width=True)
+    st.line_chart(normalized, width="stretch")
 
 
 def render_overview(findings_df: pd.DataFrame, correlation_df: pd.DataFrame) -> None:
@@ -207,7 +207,7 @@ def main() -> None:
         if main_figure.exists():
             render_figure(main_figure)
         st.subheader("Key findings")
-        st.dataframe(findings_df, use_container_width=True, hide_index=True)
+        st.dataframe(findings_df, width="stretch", hide_index=True)
 
     with tab_visuals:
         st.markdown(
@@ -222,13 +222,13 @@ def main() -> None:
         render_interactive_charts(cleaned_df)
         st.divider()
         st.subheader("Source data (for reference)")
-        st.dataframe(cleaned_df, use_container_width=True, hide_index=True)
+        st.dataframe(cleaned_df, width="stretch", hide_index=True)
 
     with tab_sheets:
         st.subheader("Analysis spreadsheets")
         sheet_name = st.selectbox("Select spreadsheet", list(SHEET_FILES.keys()))
         df = load_csv(SHEET_FILES[sheet_name])
-        st.dataframe(df, use_container_width=True, hide_index=True)
+        st.dataframe(df, width="stretch", hide_index=True)
         st.download_button(
             label=f"Download {SHEET_FILES[sheet_name]}",
             data=df.to_csv(index=False),
@@ -260,6 +260,13 @@ def main() -> None:
             - n = 3: insufficient for reliable inference or causation claims
             - Aggregate yearly data, not individual pediatric records
             - Sunlight is a regional average, not measured individual exposure
+            """
+        )
+        st.subheader("External data sources")
+        st.markdown(
+            """
+            - [NASA POWER Data Access Viewer](https://power.larc.nasa.gov/data-access-viewer/) — solar and environmental data
+            - [CDC Mental Health Conditions & Care](https://www.cdc.gov/mental-health/about-data/conditions-care.html) — youth depression and mental health statistics
             """
         )
         st.subheader("How to reproduce")
