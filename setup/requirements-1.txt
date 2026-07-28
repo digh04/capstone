@@ -8,3 +8,6 @@ seaborn
 scikit-learn
 jupyterlab
 ipykernel
+streamlit
+pyyaml
+pytest

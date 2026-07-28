@@ -1,4 +1,4 @@
-name: 7030_class_1
+name: capstone_env
 channels:
   - conda-forge
   - bioconda
@@ -14,6 +14,9 @@ dependencies:
   - scipy
   - seaborn
   - scikit-learn
+  - streamlit
+  - pyyaml
+  - pytest
   # --- R stack ---
   - r-base
   - r-irkernel

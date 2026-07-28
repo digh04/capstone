@@ -1,0 +1,23 @@
+data:
+  source: setup/capstone.csv
+
+columns:
+  raw:
+    year: Year
+    depression: "YouthDepression(%)"
+    sun: "AverageSun(MJ/m^2/day)"
+  clean:
+    year: year
+    depression: youth_depression_pct
+    sun: avg_sun_mj_m2_day
+
+paths:
+  output_dir: outputs
+  spreadsheets: outputs/spreadsheets
+  figures: outputs/figures
+  results: outputs/results
+
+validation:
+  depression_min: 0
+  depression_max: 100
+  sun_min: 0
